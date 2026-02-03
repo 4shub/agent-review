@@ -42,6 +42,7 @@
   "homepage": "https://github.com/4shub/code-review#readme",
   "files": [
     "dist/",
+    ".skills/",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"

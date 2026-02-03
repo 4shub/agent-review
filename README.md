@@ -81,12 +81,25 @@ Review data is also saved to `.code-review/latest-review.json` for programmatic 
 
 ## 🤖 For AI Coding Agents
 
-This tool is designed to integrate seamlessly with AI coding agents:
+This tool is designed to integrate seamlessly with AI coding agents.
+
+### Letta Code Skill
+
+A `.skills/code-review/SKILL.md` is included that teaches Letta Code agents how to properly use this tool:
+
+- ✅ Run inline (not background) with long timeout (10 min)
+- ✅ Automatically read feedback from `.code-review/latest-review.json`
+- ✅ Process line comments and general feedback
+- ✅ Handle commit option correctly
+
+Agents using this skill will automatically request reviews at appropriate times.
+
+### Manual Integration
 
 ```typescript
 // Example: Using with an AI agent
 async function getCodeReview() {
-  // Run code-review CLI
+  // Run code-review CLI (MUST be inline, NOT background)
   exec('code-review --port 3456');
   
   // Wait for user to complete review
