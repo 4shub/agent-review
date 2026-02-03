@@ -1,11 +1,11 @@
 {
-  "name": "code-review",
+  "name": "agent-review",
   "version": "0.1.0",
   "description": "Super lightweight CLI-based code review tool with GitHub-like UI for AI coding agents",
   "main": "dist/cli/index.js",
   "type": "module",
   "bin": {
-    "code-review": "./dist/cli/index.js"
+    "code-review": "dist/cli/index.js"
   },
   "scripts": {
     "dev": "node --loader ts-node/esm src/cli/index.ts",

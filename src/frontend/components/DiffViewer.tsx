@@ -113,7 +113,7 @@ function LineViewer({ line, file }: LineViewerProps) {
             <CommentThread
               file={file.path}
               line={line.newLineNumber || line.oldLineNumber || 0}
-              oldLine={line.oldLineNumber}
+              oldLine={line.oldLineNumber !== undefined ? line.oldLineNumber : undefined}
               context={line.content}
               lineKey={lineKey}
               onClose={() => (activeCommentLine.value = null)}

@@ -6,7 +6,7 @@ import Fastify, { FastifyInstance } from 'fastify';
 import fastifyStatic from '@fastify/static';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import type { ParsedDiff, ReviewFeedback, ReviewSubmission, ServerOptions, ServerResult } from '@/shared/types';
+import type { ParsedDiff, ReviewSubmission, ServerOptions, ServerResult } from '@/shared/types';
 import { ServerError } from '@/shared/types';
 import { DEFAULT_PORT, DEFAULT_HOST, SERVER_SHUTDOWN_TIMEOUT_MS } from '@/shared/constants';
 
@@ -83,7 +83,7 @@ function registerRoutes(
   submissionResolver: ((submission: ReviewSubmission) => void) | null
 ): void {
   // GET /api/diff - Return parsed diff
-  fastify.get('/api/diff', async (request, reply) => {
+  fastify.get('/api/diff', async () => {
     return diff;
   });
 

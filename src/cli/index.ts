@@ -3,7 +3,7 @@
  */
 
 import { Command } from 'commander';
-import { getDiff, getCurrentCommitHash } from '../git/diff-service.js';
+import { getDiff } from '../git/diff-service.js';
 import { startReviewServer } from '../server/index.js';
 import { saveReview, getLatestReviewPath } from '../review/storage.js';
 import { DEFAULT_PORT } from '../shared/constants.js';

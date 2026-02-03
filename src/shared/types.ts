@@ -219,7 +219,7 @@ export type SupportedLanguage =
  * Custom error for git operations
  */
 export class GitError extends Error {
-  constructor(message: string, public readonly cause?: Error) {
+  constructor(message: string, public override readonly cause?: Error) {
     super(message);
     this.name = 'GitError';
   }
@@ -242,7 +242,7 @@ export class ServerError extends Error {
   constructor(
     message: string,
     public readonly statusCode?: number,
-    public readonly cause?: Error
+    public override readonly cause?: Error
   ) {
     super(message);
     this.name = 'ServerError';

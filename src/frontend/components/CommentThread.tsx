@@ -25,7 +25,7 @@ export function CommentThread({ file, line, oldLine, context, lineKey, onClose }
       const comment: LineComment = {
         file,
         line,
-        oldLine,
+        oldLine: oldLine !== undefined ? oldLine : undefined,
         comment: commentText.trim(),
         context: context.trim(),
       };
