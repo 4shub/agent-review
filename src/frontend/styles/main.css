@@ -88,7 +88,8 @@ body {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  padding-bottom: 350px; /* Space for fixed review panel */
+  padding-bottom: 450px; /* Extra space for fixed review panel */
+  max-height: calc(100vh - 80px); /* Account for header */
 }
 
 /* Loading/Error States */

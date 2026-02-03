@@ -47,16 +47,26 @@ export function ReviewPanel() {
         throw new Error('Failed to submit review');
       }
 
-      // Show success message briefly, then close window
-      const successDiv = document.createElement('div');
-      successDiv.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#3fb950;color:#fff;padding:2rem 3rem;border-radius:8px;font-size:1.2rem;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.5)';
-      successDiv.textContent = '✅ Review submitted successfully!';
-      document.body.appendChild(successDiv);
+      // Replace entire page with success message
+      document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;background:#0d1117;color:#c9d1d9;">
+          <div style="text-align:center;">
+            <div style="font-size:4rem;margin-bottom:1rem;">✅</div>
+            <h1 style="font-size:2rem;margin-bottom:1rem;color:#3fb950;">Review Submitted Successfully!</h1>
+            <p style="font-size:1.2rem;color:#8b949e;">You can close this window now</p>
+            <p style="font-size:0.9rem;color:#6e7681;margin-top:2rem;">Window will close automatically in 3 seconds...</p>
+          </div>
+        </div>
+      `;
 
-      // Close window after 1 second
+      // Try to close window after delay
       setTimeout(() => {
         window.close();
-      }, 1000);
+        // If close doesn't work (cross-browser restrictions), redirect to blank page
+        setTimeout(() => {
+          window.location.href = 'about:blank';
+        }, 100);
+      }, 3000);
     } catch (error) {
       alert('Error submitting review: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
