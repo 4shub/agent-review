@@ -11,6 +11,7 @@
     "dev": "node --loader ts-node/esm src/cli/index.ts",
     "build": "node esbuild.config.js",
     "build:watch": "node esbuild.config.js --watch",
+    "start": "node dist/cli/index.js",
     "test": "vitest",
     "test:unit": "vitest run --reporter=verbose",
     "test:integration": "vitest run tests/integration",

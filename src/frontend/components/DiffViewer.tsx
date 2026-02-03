@@ -79,7 +79,12 @@ interface LineViewerProps {
 }
 
 function LineViewer({ line, file }: LineViewerProps) {
-  const lineKey = `${file.path}:${line.newLineNumber || line.oldLineNumber}`;
+  // Create unique key based on line type to avoid collisions
+  const lineIdentifier = line.type === 'delete' 
+    ? `old-${line.oldLineNumber}`
+    : `new-${line.newLineNumber || line.oldLineNumber}`;
+  const lineKey = `${file.path}:${lineIdentifier}`;
+  
   const hasComment = comments.value.has(lineKey);
   const isActive = activeCommentLine.value === lineKey;
 
@@ -110,6 +115,7 @@ function LineViewer({ line, file }: LineViewerProps) {
               line={line.newLineNumber || line.oldLineNumber || 0}
               oldLine={line.oldLineNumber}
               context={line.content}
+              lineKey={lineKey}
               onClose={() => (activeCommentLine.value = null)}
             />
           </td>

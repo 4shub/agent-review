@@ -97,6 +97,16 @@ export interface ReviewFeedback {
 }
 
 /**
+ * Review submission payload
+ */
+export interface ReviewSubmission {
+  feedback: ReviewFeedback;
+  commit?: {
+    message: string;
+  };
+}
+
+/**
  * Stored review with additional metadata
  */
 export interface StoredReview {
@@ -123,7 +133,7 @@ export interface ServerOptions {
  */
 export interface ServerResult {
   url: string;
-  feedback: Promise<ReviewFeedback>;
+  submission: Promise<ReviewSubmission>;
   shutdown: () => Promise<void>;
 }
 

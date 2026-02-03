@@ -31,7 +31,7 @@ const serverBuild = {
     'open',
   ],
   banner: {
-    js: '#!/usr/bin/env node\n',
+    js: '#!/usr/bin/env node',
   },
 };
 

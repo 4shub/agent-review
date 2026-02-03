@@ -88,7 +88,7 @@ body {
   flex: 1;
   padding: 2rem;
   overflow-y: auto;
-  padding-bottom: 200px; /* Space for fixed review panel */
+  padding-bottom: 350px; /* Space for fixed review panel */
 }
 
 /* Loading/Error States */
@@ -364,6 +364,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.commit-message-section {
+  margin-bottom: 1rem;
+}
+
 .feedback-label {
   display: block;
   margin-bottom: 0.5rem;
@@ -385,6 +389,22 @@ body {
 }
 
 .general-feedback-input:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
+.commit-message-input {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.commit-message-input:focus {
   outline: none;
   border-color: var(--blue);
 }
@@ -428,18 +448,37 @@ body {
 }
 
 .btn-submit {
-  background: var(--green);
+  background: var(--blue);
   color: #fff;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
 .btn-submit:hover {
+  background: #4a93e6;
+}
+
+.btn-commit {
+  background: var(--green);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.btn-commit:hover {
   background: #2ea043;
+}
+
+.btn-commit:disabled {
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: not-allowed;
 }
 
 .review-actions {
   display: flex;
   justify-content: flex-end;
+  gap: 0.75rem;
 }

@@ -1,13 +1,13 @@
-#!/usr/bin/env node
-
 /**
  * CLI entry point for code-review tool
  */
 
 import { Command } from 'commander';
-import { getDiff } from '../git/diff-service.js';
+import { getDiff, getCurrentCommitHash } from '../git/diff-service.js';
 import { startReviewServer } from '../server/index.js';
+import { saveReview, getLatestReviewPath } from '../review/storage.js';
 import { DEFAULT_PORT } from '../shared/constants.js';
+import { simpleGit } from 'simple-git';
 
 const program = new Command();
 
@@ -50,11 +50,36 @@ program
       console.log('   (Press Ctrl+C to cancel)');
       console.log('');
 
-      // Wait for feedback
-      const feedback = await server.feedback;
+      // Wait for review submission
+      const submission = await server.submission;
+      const feedback = submission.feedback;
 
       // Shutdown server
       await server.shutdown();
+
+      // Save review to disk
+      saveReview(feedback, diff);
+
+      // Commit if requested
+      if (submission.commit) {
+        console.log('');
+        console.log('📝 Creating git commit...');
+        
+        try {
+          const git = simpleGit(process.cwd());
+          
+          // Add all changes
+          await git.add('.');
+          
+          // Commit with message
+          await git.commit(submission.commit.message);
+          
+          console.log('✅ Changes committed!');
+        } catch (error) {
+          console.error('❌ Failed to commit:', error instanceof Error ? error.message : 'Unknown error');
+          console.error('   Review was saved, but commit failed.');
+        }
+      }
 
       console.log('');
       console.log('📋 Review completed!');
@@ -84,7 +109,8 @@ program
 
       console.log('═══════════════════════════════════════════');
       console.log('');
-      console.log('✨ Review saved!');
+      console.log('✨ Review saved to:', getLatestReviewPath());
+      console.log('');
 
       process.exit(0);
     } catch (error) {

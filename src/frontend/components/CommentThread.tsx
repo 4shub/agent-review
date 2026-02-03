@@ -11,11 +11,11 @@ interface CommentThreadProps {
   line: number;
   oldLine?: number;
   context: string;
+  lineKey: string;
   onClose: () => void;
 }
 
-export function CommentThread({ file, line, oldLine, context, onClose }: CommentThreadProps) {
-  const lineKey = `${file}:${line}`;
+export function CommentThread({ file, line, oldLine, context, lineKey, onClose }: CommentThreadProps) {
   const existingComment = comments.value.get(lineKey);
   
   const [commentText, setCommentText] = useState(existingComment?.comment || '');

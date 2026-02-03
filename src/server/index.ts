@@ -6,7 +6,7 @@ import Fastify, { FastifyInstance } from 'fastify';
 import fastifyStatic from '@fastify/static';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import type { ParsedDiff, ReviewFeedback, ServerOptions, ServerResult } from '@/shared/types';
+import type { ParsedDiff, ReviewFeedback, ReviewSubmission, ServerOptions, ServerResult } from '@/shared/types';
 import { ServerError } from '@/shared/types';
 import { DEFAULT_PORT, DEFAULT_HOST, SERVER_SHUTDOWN_TIMEOUT_MS } from '@/shared/constants';
 
@@ -32,14 +32,14 @@ export async function startReviewServer(
     disableRequestLogging: true,
   });
 
-  // Store submitted feedback (will be resolved when user submits)
-  let feedbackResolver: ((feedback: ReviewFeedback) => void) | null = null;
-  const feedbackPromise = new Promise<ReviewFeedback>((resolve) => {
-    feedbackResolver = resolve;
+  // Store submitted review (will be resolved when user submits)
+  let submissionResolver: ((submission: ReviewSubmission) => void) | null = null;
+  const submissionPromise = new Promise<ReviewSubmission>((resolve) => {
+    submissionResolver = resolve;
   });
 
   // Register routes
-  registerRoutes(fastify, diff, feedbackResolver);
+  registerRoutes(fastify, diff, submissionResolver);
 
   // Serve static files (frontend)
   await registerStaticFiles(fastify);
@@ -60,7 +60,7 @@ export async function startReviewServer(
 
     return {
       url,
-      feedback: feedbackPromise,
+      submission: submissionPromise,
       shutdown: async () => {
         await shutdownServer(fastify);
       },
@@ -80,31 +80,36 @@ export async function startReviewServer(
 function registerRoutes(
   fastify: FastifyInstance,
   diff: ParsedDiff,
-  feedbackResolver: ((feedback: ReviewFeedback) => void) | null
+  submissionResolver: ((submission: ReviewSubmission) => void) | null
 ): void {
   // GET /api/diff - Return parsed diff
   fastify.get('/api/diff', async (request, reply) => {
     return diff;
   });
 
-  // POST /api/submit - Accept review feedback
-  fastify.post<{ Body: ReviewFeedback }>('/api/submit', async (request, reply) => {
-    const feedback = request.body;
+  // POST /api/submit - Accept review submission (feedback + optional commit)
+  interface SubmitRequestBody {
+    Body: ReviewSubmission;
+  }
+  
+  fastify.post<SubmitRequestBody>('/api/submit', async (request, reply) => {
+    const submission = request.body;
 
-    // Validate feedback
-    if (!feedback || typeof feedback !== 'object') {
+    // Validate submission
+    if (!submission || typeof submission !== 'object') {
+      reply.code(400).send({ error: 'Invalid submission format' });
+      return;
+    }
+
+    const feedback = submission.feedback;
+    if (!feedback || !Array.isArray(feedback.lineComments)) {
       reply.code(400).send({ error: 'Invalid feedback format' });
       return;
     }
 
-    if (!Array.isArray(feedback.lineComments)) {
-      reply.code(400).send({ error: 'lineComments must be an array' });
-      return;
-    }
-
-    // Resolve the feedback promise
-    if (feedbackResolver) {
-      feedbackResolver(feedback);
+    // Resolve the submission promise
+    if (submissionResolver) {
+      submissionResolver(submission);
     }
 
     return { success: true };
@@ -120,10 +125,9 @@ function registerRoutes(
  * Register static file serving for frontend assets
  */
 async function registerStaticFiles(fastify: FastifyInstance): Promise<void> {
-  // Serve frontend from public directory
-  // When built: __dirname is dist/server, so ../../public is correct
-  // When running tests: __dirname is src/server, so ../../public is also correct
-  const publicDir = join(__dirname, '../../public');
+  // Serve frontend from dist/public directory
+  // When built: __dirname is dist/cli, so ../public works
+  const publicDir = join(__dirname, '../public');
   
   try {
     await fastify.register(fastifyStatic, {
