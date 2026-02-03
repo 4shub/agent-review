@@ -1,0 +1,51 @@
+# Source files (only publish dist/)
+src/
+tests/
+public/
+
+# Configuration files
+tsconfig.json
+vitest.config.ts
+playwright.config.ts
+esbuild.config.js
+
+# Test and coverage
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+.playwright/
+
+# Development files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Letta Code specific
+.letta/
+.skills/
+
+# Review storage
+.code-review/
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+
+# Logs
+*.log
+
+# Temporary
+*.tmp
+tmp/
+temp/
+
+# Lock files (keep package-lock.json for reproducible installs)
+pnpm-lock.yaml
+yarn.lock
