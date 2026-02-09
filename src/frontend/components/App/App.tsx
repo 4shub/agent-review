@@ -69,12 +69,14 @@ export function App() {
   return (
     <div class="app">
       <Header diff={diffData.value} />
-
       <main class="app-main">
-        <DiffViewer diff={diffData.value} />
+        <div class="diff-container">
+          <DiffViewer diff={diffData.value} />
+        </div>
+        <ReviewPanel />
       </main>
 
-      <ReviewPanel />
+
     </div>
   );
 }
