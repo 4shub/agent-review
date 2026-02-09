@@ -25,6 +25,13 @@ cd agent-review
 # Install dependencies
 npm install
 
+# Start dev server with mock data (for UI development)
+npm run dev:web
+# Opens at http://localhost:3456 with:
+# - Mock diff data (3 sample files)
+# - Hot reload (auto-rebuilds on file changes)
+# - No git required - perfect for UI iteration!
+
 # Run tests
 npm test
 
@@ -34,7 +41,7 @@ npm run test:coverage
 # Build
 npm run build
 
-# Run locally
+# Run locally (requires git repo with changes)
 npm start
 ```
 
