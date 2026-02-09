@@ -4,9 +4,10 @@
 
 import { signal } from '@preact/signals';
 import { useEffect } from 'preact/hooks';
-import type { ParsedDiff, LineComment } from '../../shared/types';
-import { DiffViewer } from './DiffViewer';
-import { ReviewPanel } from './ReviewPanel';
+import type { ParsedDiff, LineComment } from '../../../shared/types';
+import { Header } from '../Header/Header';
+import { DiffViewer } from '../DiffViewer/DiffViewer';
+import { ReviewPanel } from '../ReviewPanel/ReviewPanel';
 
 // Global state
 export const diffData = signal<ParsedDiff | null>(null);
@@ -67,14 +68,7 @@ export function App() {
 
   return (
     <div class="app">
-      <header class="app-header">
-        <h1>Code Review</h1>
-        <div class="stats">
-          <span class="stat">{diffData.value.stats.filesChanged} files</span>
-          <span class="stat additions">+{diffData.value.stats.insertions}</span>
-          <span class="stat deletions">-{diffData.value.stats.deletions}</span>
-        </div>
-      </header>
+      <Header diff={diffData.value} />
 
       <main class="app-main">
         <DiffViewer diff={diffData.value} />

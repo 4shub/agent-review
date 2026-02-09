@@ -3,9 +3,9 @@
  */
 
 import { signal } from '@preact/signals';
-import type { ParsedDiff, DiffFile, DiffHunk, DiffLine } from '../../shared/types';
-import { CommentThread } from './CommentThread';
-import { comments } from './App';
+import type { ParsedDiff, DiffFile, DiffHunk, DiffLine } from '../../../shared/types';
+import { CommentThread } from '../CommentThread/CommentThread';
+import { comments } from '../App/App';
 
 const activeCommentLine = signal<string | null>(null);
 

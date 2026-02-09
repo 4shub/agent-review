@@ -3,8 +3,8 @@
  */
 
 import { useState } from 'preact/hooks';
-import type { LineComment } from '../../shared/types';
-import { comments } from './App';
+import type { LineComment } from '../../../shared/types';
+import { comments } from '../App/App';
 
 interface CommentThreadProps {
   file: string;

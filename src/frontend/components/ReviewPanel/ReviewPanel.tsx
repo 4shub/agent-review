@@ -3,8 +3,8 @@
  */
 
 import { signal, computed } from '@preact/signals';
-import { comments, generalFeedback, diffData } from './App';
-import type { ReviewFeedback } from '../../shared/types';
+import { comments, generalFeedback, diffData } from '../App/App';
+import type { ReviewFeedback } from '../../../shared/types';
 
 const commentCount = computed(() => comments.value.size);
 const commitMessage = signal<string>('');
