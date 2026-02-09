@@ -9,6 +9,7 @@
   },
   "scripts": {
     "dev": "node --loader ts-node/esm src/cli/index.ts",
+    "dev:web": "node dev-server.js",
     "build": "node esbuild.config.js",
     "build:watch": "node esbuild.config.js --watch",
     "start": "node dist/cli/index.js",
