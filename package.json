@@ -5,7 +5,7 @@
   "main": "dist/cli/index.js",
   "type": "module",
   "bin": {
-    "code-review": "dist/cli/index.js"
+    "agent-review": "dist/cli/index.js"
   },
   "scripts": {
     "dev": "node --loader ts-node/esm src/cli/index.ts",
@@ -23,7 +23,7 @@
     "lint": "tsc --noEmit"
   },
   "keywords": [
-    "code-review",
+    "agent-review",
     "git",
     "diff",
     "cli",
@@ -34,12 +34,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4shub/code-review.git"
+    "url": "git+https://github.com/4shub/agent-review.git"
   },
   "bugs": {
-    "url": "https://github.com/4shub/code-review/issues"
+    "url": "https://github.com/4shub/agent-review/issues"
   },
-  "homepage": "https://github.com/4shub/code-review#readme",
+  "homepage": "https://github.com/4shub/agent-review#readme",
   "files": [
     "dist/",
     ".skills/",

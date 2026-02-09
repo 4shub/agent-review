@@ -15,7 +15,7 @@ export const DEFAULT_HOST = 'localhost';
 // File and Directory Paths
 // ============================================================================
 
-export const REVIEW_STORAGE_DIR = '.code-review';
+export const REVIEW_STORAGE_DIR = '.agent-review';
 export const REVIEWS_SUBDIR = 'reviews';
 
 // ============================================================================

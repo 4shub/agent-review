@@ -1,6 +1,6 @@
 ---
-name: code-review
-description: Request interactive code review from users using the code-review CLI tool. Automatically captures user feedback on code changes.
+name: agent-review
+description: Request interactive code review from users using the agent-review CLI tool. Automatically captures user feedback on code changes.
 ---
 
 # Code Review Skill
@@ -14,15 +14,25 @@ Use this skill when you need to get human feedback on code changes you've made.
 - When you want user feedback on your approach
 - When the user explicitly asks for a code review
 
+## Installation
+
+If agent-review isn't installed:
+
+```bash
+npm install -g agent-review
+# or run directly: npx agent-review
+```
+
 ## How to Use
+
 
 ### Step 1: Run the Code Review Tool
 
-**CRITICAL:** Always run code-review **inline** (not in background) with a long timeout:
+**CRITICAL:** Always run agent-review **inline** (not in background) with a long timeout:
 
 ```typescript
 Bash({
-  command: "npm start",  // or "node dist/cli/index.js"
+  command: "npx agent-review", 
   description: "Start code review session",
   timeout: 600000,  // 10 minutes - user needs time to review
 })
@@ -45,7 +55,7 @@ After the tool completes, read the structured JSON feedback:
 
 ```typescript
 Read({
-  file_path: "/path/to/project/.code-review/latest-review.json"
+  file_path: "/path/to/project/.agent-review/latest-review.json"
 })
 ```
 
@@ -68,14 +78,14 @@ Process the review feedback:
 ```typescript
 // 1. Run code review (inline, long timeout)
 const result = await Bash({
-  command: "npm start",
+  command: "npx agent-review",
   description: "Request code review from user",
   timeout: 600000,  // 10 min
 });
 
 // 2. Read structured feedback
 const reviewData = await Read({
-  file_path: ".code-review/latest-review.json"
+  file_path: ".agent-review/latest-review.json"
 });
 
 // 3. Parse and process
@@ -96,7 +106,7 @@ for (const comment of review.feedback.lineComments) {
 
 ## Review Data Structure
 
-The `.code-review/latest-review.json` file contains:
+The `.agent-review/latest-review.json` file contains:
 
 ```json
 {
@@ -137,7 +147,7 @@ The `.code-review/latest-review.json` file contains:
 ```typescript
 // WRONG - you won't get the output automatically
 Bash({
-  command: "npm start",
+  command: "npx agent-review",
   run_in_background: true
 })
 ```
@@ -146,7 +156,7 @@ Bash({
 ```typescript
 // WRONG - will timeout before user finishes
 Bash({
-  command: "npm start",
+  command: "npx agent-review",
   timeout: 120000  // 2 min too short
 })
 ```
@@ -161,12 +171,12 @@ Bash({
 ```typescript
 // RIGHT - inline, long timeout, auto-read
 await Bash({
-  command: "npm start",
+  command: "npx agent-review",
   timeout: 600000
 });
 
 const review = await Read({
-  file_path: ".code-review/latest-review.json"
+  file_path: ".agent-review/latest-review.json"
 });
 ```
 
@@ -177,15 +187,5 @@ const review = await Read({
 - **After review:** Process feedback immediately and show user your changes
 - **Commit option:** User can choose to commit during review - check the bash output
 
-## Installation
-
-If code-review isn't installed:
-
-```bash
-npm install -g code-review
-# or run directly: npx code-review
-```
-
----
 
 **Remember:** Always run inline with long timeout, then auto-read the JSON feedback!

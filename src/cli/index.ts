@@ -1,5 +1,5 @@
 /**
- * CLI entry point for code-review tool
+ * CLI entry point for agent-review tool
  */
 
 import { Command } from 'commander';
@@ -12,7 +12,7 @@ import { simpleGit } from 'simple-git';
 const program = new Command();
 
 program
-  .name('code-review')
+  .name('agent-review')
   .description('Launch interactive code review UI for git changes')
   .version('0.1.0')
   .option('-p, --port <number>', 'Server port', String(DEFAULT_PORT))

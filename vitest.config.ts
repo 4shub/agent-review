@@ -7,7 +7,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
     include: ['**/*.test.{ts,tsx}', 'tests/**/*.test.{ts,tsx}'],
-    exclude: ['node_modules', 'dist', '.letta', '.code-review'],
+    exclude: ['node_modules', 'dist', '.letta', '.agent-review'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],

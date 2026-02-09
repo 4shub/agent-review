@@ -10,8 +10,8 @@ import { REVIEW_STORAGE_DIR, REVIEWS_SUBDIR } from '@/shared/constants';
 /**
  * Save review feedback to disk
  * Saves to both:
- * - .code-review/latest-review.json (for AI agent to read immediately)
- * - .code-review/reviews/{timestamp}.json (for history)
+ * - .agent-review/latest-review.json (for AI agent to read immediately)
+ * - .agent-review/reviews/{timestamp}.json (for history)
  */
 export function saveReview(feedback: ReviewFeedback, diff?: ParsedDiff): void {
   const storageDir = join(process.cwd(), REVIEW_STORAGE_DIR);

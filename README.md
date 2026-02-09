@@ -1,8 +1,11 @@
-# Code Review CLI
+# Agent Review 
 
-> 🚀 A super lightweight, GitHub-style code review tool designed for AI coding agents
+> 🚀 A lighweight tool for you to review your agent's code changes
 
-Beautiful, interactive code review UI that opens in your browser, lets you add inline comments, and returns structured feedback to AI agents.
+`agent-review` is a CLI tool that lets you review your AI agent's code and feedback to it without leaving your computer.
+
+## How it works
+Add the skill `npx skills add `
 
 ## ✨ Features
 
@@ -18,13 +21,13 @@ Beautiful, interactive code review UI that opens in your browser, lets you add i
 
 ```bash
 # Run directly with npx (no installation needed)
-npx code-review
+npx agent-review
 
 # Or install globally
-npm install -g code-review
+npm install -g agent-review
 
 # Then run from any git repo
-code-review
+agent-review
 ```
 
 ## 📖 Usage
@@ -33,16 +36,16 @@ code-review
 
 ```bash
 # Review all uncommitted changes
-code-review
+agent-review
 
 # Review only staged changes
-code-review --staged
+agent-review --staged
 
 # Use custom port
-code-review --port 8080
+agent-review --port 8080
 
 # Don't auto-open browser
-code-review --no-open
+agent-review --no-open
 ```
 
 ### In the UI
@@ -77,7 +80,7 @@ The tool outputs structured JSON feedback that AI agents can parse:
 }
 ```
 
-Review data is also saved to `.code-review/latest-review.json` for programmatic access.
+Review data is also saved to `.agent-review/latest-review.json` for programmatic access.
 
 ## 🤖 For AI Coding Agents
 
@@ -85,10 +88,10 @@ This tool is designed to integrate seamlessly with AI coding agents.
 
 ### Letta Code Skill
 
-A `.skills/code-review/SKILL.md` is included that teaches Letta Code agents how to properly use this tool:
+A `.skills/agent-review/SKILL.md` is included that teaches Letta Code agents how to properly use this tool:
 
 - ✅ Run inline (not background) with long timeout (10 min)
-- ✅ Automatically read feedback from `.code-review/latest-review.json`
+- ✅ Automatically read feedback from `.agent-review/latest-review.json`
 - ✅ Process line comments and general feedback
 - ✅ Handle commit option correctly
 
@@ -99,15 +102,15 @@ Agents using this skill will automatically request reviews at appropriate times.
 ```typescript
 // Example: Using with an AI agent
 async function getCodeReview() {
-  // Run code-review CLI (MUST be inline, NOT background)
-  exec('code-review --port 3456');
+  // Run agent-review CLI (MUST be inline, NOT background)
+  exec('agent-review --port 3456');
   
   // Wait for user to complete review
   // ... (tool blocks until submission)
   
   // Read structured feedback
   const review = JSON.parse(
-    fs.readFileSync('.code-review/latest-review.json', 'utf-8')
+    fs.readFileSync('.agent-review/latest-review.json', 'utf-8')
   );
   
   // Process feedback
@@ -129,8 +132,8 @@ async function getCodeReview() {
 
 ```bash
 # Clone the repo
-git clone git@github.com:4shub/code-review.git
-cd code-review
+git clone git@github.com:4shub/agent-review.git
+cd agent-review
 
 # Install dependencies
 npm install
@@ -184,7 +187,7 @@ Built with:
 - [Fastify](https://www.fastify.io/) - High performance web framework
 - [simple-git](https://github.com/steveukx/git-js) - Git command wrapper
 - [Commander.js](https://github.com/tj/commander.js) - CLI framework
-- [esbuild](https://esbuild.github.io/) - Extremely fast bundler
+- [esbuild](nhttps://esbuild.github.io/) - Extremely fast bundler
 
 ---
 

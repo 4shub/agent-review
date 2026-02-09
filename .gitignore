@@ -13,7 +13,7 @@ coverage/
 .nyc_output/
 
 # Review storage (local only)
-.code-review/
+.agent-review/
 
 # Environment files
 .env

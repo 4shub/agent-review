@@ -29,7 +29,7 @@ test-results/
 .skills/
 
 # Review storage
-.code-review/
+.agent-review/
 
 # Git
 .git/

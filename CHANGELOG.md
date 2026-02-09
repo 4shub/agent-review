@@ -8,13 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2026-02-03
 
 ### Added
-- Initial release of code-review CLI tool
+- Initial release of agent-review CLI tool
 - GitHub-style diff viewer with dark theme
 - Inline comment system (click any changed line)
 - Review panel with general feedback
 - Optional commit integration (review & commit in one step)
 - Untracked file support (shows brand new files)
-- Auto-save review feedback to `.code-review/latest-review.json`
+- Auto-save review feedback to `.agent-review/latest-review.json`
 - Auto-open browser on launch
 - Structured JSON output for AI agents
 - Full TypeScript support with strict mode
