@@ -10,6 +10,7 @@ import fastifyStatic from '@fastify/static';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import { watch, copyFileSync } from 'fs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -127,6 +128,21 @@ async function startDevServer() {
 
   return fastify;
 }
+
+// Watch for CSS changes manually
+watch(join(__dirname, 'src/frontend/styles/main.css'), (eventType) => {
+  if (eventType === 'change') {
+    try {
+      copyFileSync(
+        join(__dirname, 'src/frontend/styles/main.css'),
+        join(__dirname, 'dist/public/styles.css')
+      );
+      console.log('🎨 CSS updated');
+    } catch (error) {
+      console.error('Error copying CSS:', error);
+    }
+  }
+});
 
 // Build frontend in watch mode
 const watcher = spawn('node', ['esbuild.config.js', '--watch'], {
