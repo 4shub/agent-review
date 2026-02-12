@@ -12,7 +12,7 @@ Use this skill when you need to get human feedback on code changes you've made.
 - After implementing features or fixes
 - Before committing significant changes
 - When you want user feedback on your approach
-- When the user explicitly asks for a code review
+- When the user explicitly asks you to review your code
 
 ## Installation
 

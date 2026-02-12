@@ -10,13 +10,13 @@ interface HeaderProps {
 
 export function Header({ diff }: HeaderProps) {
   return (
-    <header class="app-header">
-      <h1>Code Review</h1>
-      <div class="stats">
-        <span class="stat">{diff.stats.filesChanged} files</span>
-        <span class="stat additions">+{diff.stats.insertions}</span>
-        <span class="stat deletions">-{diff.stats.deletions}</span>
-      </div>
-    </header>
+      <header className="app-header">
+          <h1>Code Review</h1>
+          <div className="stats">
+              <span className="stat">{diff.stats.filesChanged} files</span>
+              <span className="stat additions">+{diff.stats.insertions}</span>
+              <span className="stat deletions">-{diff.stats.deletions}</span>
+          </div>
+      </header>
   );
 }

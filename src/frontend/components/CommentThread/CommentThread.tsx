@@ -53,29 +53,31 @@ export function CommentThread({ file, line, oldLine, context, lineKey, onClose }
         </span>
       </div>
 
-      <textarea
-        class="comment-input"
-        placeholder="Add your comment..."
-        value={commentText}
-        onInput={(e) => setCommentText((e.target as HTMLTextAreaElement).value)}
-        rows={3}
-        autoFocus
-      />
+      <div className="comment-editor">
+        <textarea
+            className="comment-input"
+            placeholder="Add your comment..."
+            value={commentText}
+            onInput={(e) => setCommentText((e.target as HTMLTextAreaElement).value)}
+            rows={3}
+            autoFocus
+        />
 
-      <div class="comment-actions">
-        <button class="btn btn-primary" onClick={handleSave}>
-          {existingComment ? 'Update' : 'Save'} Comment
-        </button>
-        
-        {existingComment && (
-          <button class="btn btn-danger" onClick={handleDelete}>
-            Delete
+        <div className="comment-actions">
+          <button className="btn btn-primary" onClick={handleSave}>
+            {existingComment ? 'Update' : 'Save'} Comment
           </button>
-        )}
-        
-        <button class="btn btn-secondary" onClick={onClose}>
-          Cancel
-        </button>
+
+          {existingComment && (
+              <button className="btn btn-danger" onClick={handleDelete}>
+                Delete
+              </button>
+          )}
+
+          <button className="btn btn-secondary" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

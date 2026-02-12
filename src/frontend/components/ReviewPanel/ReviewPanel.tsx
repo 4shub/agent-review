@@ -74,46 +74,45 @@ export function ReviewPanel() {
 
   return (
     <div class="review-panel">
-      <div class="review-summary">
-        <div class="summary-item">
-          <span class="summary-label">Line Comments:</span>
-          <span class="summary-value">{commentCount.value}</span>
+      <div class="review-header">
+        Feedback Overview
+      </div>
+      <div className="review-content">
+
+        <div className="general-feedback-section">
+          <label className="feedback-label">General Feedback</label>
+          <textarea
+              className="general-feedback-input"
+              placeholder="Add overall feedback about the changes..."
+              value={generalFeedback.value}
+              onInput={(e) => (generalFeedback.value = (e.target as HTMLTextAreaElement).value)}
+              rows={3}
+          />
         </div>
-      </div>
 
-      <div class="general-feedback-section">
-        <label class="feedback-label">General Feedback</label>
-        <textarea
-          class="general-feedback-input"
-          placeholder="Add overall feedback about the changes..."
-          value={generalFeedback.value}
-          onInput={(e) => (generalFeedback.value = (e.target as HTMLTextAreaElement).value)}
-          rows={3}
-        />
-      </div>
+        <div className="commit-message-section">
+          <label className="feedback-label">Commit Message (optional)</label>
+          <input
+              type="text"
+              className="general-feedback-input"
+              placeholder="Enter commit message to commit changes after review..."
+              value={commitMessage.value}
+              onInput={(e) => (commitMessage.value = (e.target as HTMLInputElement).value)}
+          />
+        </div>
 
-      <div class="commit-message-section">
-        <label class="feedback-label">Commit Message (optional)</label>
-        <input
-          type="text"
-          class="commit-message-input"
-          placeholder="Enter commit message to commit changes after review..."
-          value={commitMessage.value}
-          onInput={(e) => (commitMessage.value = (e.target as HTMLInputElement).value)}
-        />
-      </div>
-
-      <div class="review-actions">
-        <button class="btn btn-submit" onClick={() => handleSubmit(false)}>
-          Submit Review Only
-        </button>
-        <button 
-          class="btn btn-commit" 
-          onClick={() => handleSubmit(true)}
-          disabled={!commitMessage.value.trim()}
-        >
-          Submit Review & Commit
-        </button>
+        <div className="review-actions">
+          <button className="btn btn-submit" onClick={() => handleSubmit(false)}>
+            Submit Review Only
+          </button>
+          <button
+              className="btn btn-commit"
+              onClick={() => handleSubmit(true)}
+              disabled={!commitMessage.value.trim()}
+          >
+            Submit Review & Commit
+          </button>
+        </div>
       </div>
     </div>
   );

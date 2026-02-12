@@ -10,17 +10,17 @@
 
 :root {
   /* Colors */
-  --bg-primary: #292c36;
-  --bg-secondary: #23282b;
-  --bg-tertiary: #292c36;
-  --bg-hover: #3a3a3a;
+  --bg-primary: #ffffff;
+  --bg-secondary: #fcfcfc;
+  --bg-tertiary: #ffffff;
+  --bg-hover: #e4e4e4;
   
-  --text-primary: #ffffff;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
+  --text-primary: #000000;
+  --text-secondary: #4a4a4a;
+  --text-muted: #797d83;
   
-  --border-color: #30363d;
-  --border-muted: #21262d;
+  --border-color: #dcd7d7;
+  --border-muted: #f8f2f2;
   
   --brand: rgba(0, 50, 154, 0.65);
   --green: #3fb950;
@@ -28,10 +28,12 @@
   --yellow: #d29922;
   --purple: #bc8cff;
   
-  --add-bg: rgba(63, 185, 80, 0.15);
+  --add-bg: rgba(175, 253, 175, 0.5);
   --delete-bg: rgba(248, 81, 73, 0.15);
   --add-text: #3fb950;
   --delete-text: #f85149;
+
+  --header-height: 33px;
 
   /* Spacing */
   --radius: 0.25rem;
@@ -52,30 +54,35 @@ body {
 }
 
 .app {
+  padding: 0.25rem;
   display: flex;
   overflow: hidden;
   flex-direction: column;
   height: 100vh;
   position: absolute;
   top: 0;
+  gap: 0.25rem;
   width: 100%;
   left: 0;
 }
 
+
 /* Header */
 .app-header {
   background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem;
   display: flex;
+  height: var(--header-height);
   text-transform: uppercase;
+  border: 1px solid var(--border-color);
   justify-content: space-between;
   align-items: center;
-  font-size: var(--font-size-xs);
+  font-size: 0.65rem;
+  border-radius: var(--radius);
 }
 
 .app-header h1 {
-  font-weight: 400;
+  font-weight: 600;
   font-size: var(--font-size-xs);
 }
 
@@ -100,6 +107,7 @@ body {
 .app-main {
   flex: 1;
   display: flex;
+  gap: 0.25rem;
   overflow-y: hidden;
   height: 0;
 }
@@ -140,34 +148,43 @@ body {
 /* Diff Viewer */
 .diff-viewer {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
 }
 
 .file-diff {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  margin-bottom: 1.5rem;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
 .file-header {
   background: var(--bg-tertiary);
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
+  height: var(--header-height);
+
+  font-size: var(--font-size-xs);
+
   gap: 0.75rem;
   border-bottom: 1px solid var(--border-color);
 }
 
 .file-path {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
-  font-size: var(--font-size-base);
   flex: 1;
+  font-size: var(--font-size-sm);
+
 }
 
 .file-badge {
   padding: 0.125rem 0.5rem;
   border-radius: 12px;
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -285,10 +302,9 @@ body {
 
 .comment-thread {
   background: var(--bg-tertiary);
-  padding: 1rem;
+  padding: 0.75rem;
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
-  margin: 0.5rem;
 }
 
 .comment-header {
@@ -296,9 +312,15 @@ body {
 }
 
 .comment-location {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--text-secondary);
   font-weight: 500;
+}
+
+.comment-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .comment-input {
@@ -308,10 +330,8 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   color: var(--text-primary);
-  font-family: inherit;
   font-size: var(--font-size-base);
   resize: vertical;
-  margin-bottom: 0.75rem;
 }
 
 .comment-input:focus {
@@ -345,27 +365,47 @@ body {
 
 /* Review Panel */
 .review-panel {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  padding: 1.5rem 2rem;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--border-color);
+  width: 300px;
+  border-radius: var(--radius);
+}
+
+.review-header {
+  padding: 0.75rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.review-content {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .review-summary {
   display: flex;
   gap: 2rem;
-  margin-bottom: 1rem;
 }
 
 .summary-item {
   display: flex;
   align-items: center;
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  width: 100%;
   gap: 0.5rem;
 }
 
 .summary-label {
   color: var(--text-secondary);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
 }
 
 .summary-value {
@@ -373,18 +413,11 @@ body {
   color: var(--brand);
 }
 
-.general-feedback-section {
-  margin-bottom: 1rem;
-}
-
-.commit-message-section {
-  margin-bottom: 1rem;
-}
 
 .feedback-label {
   display: block;
   margin-bottom: 0.5rem;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 500;
   color: var(--text-secondary);
 }
@@ -397,7 +430,7 @@ body {
   border-radius: var(--radius);
   color: var(--text-primary);
   font-family: inherit;
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   resize: vertical;
 }
 
@@ -406,16 +439,6 @@ body {
   border-color: var(--brand);
 }
 
-.commit-message-input {
-  width: 100%;
-  padding: 0.75rem;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  color: var(--text-primary);
-  font-family: monospace;
-  font-size: var(--font-size-base);
-}
 
 .commit-message-input:focus {
   outline: none;
@@ -424,22 +447,24 @@ body {
 
 /* Buttons */
 .btn {
-  padding: 0.5rem 1rem;
-  border: none;
+  height: 33px;
+  padding: 0 0.75rem;
   border-radius: var(--radius);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: 500;
+
+  border: none;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .btn-primary {
-  background: var(--brand);
-  color: #fff;
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-  background: #4a93e6;
+  background: rgba(0, 0, 0, 0.78);
 }
 
 .btn-secondary {
@@ -461,11 +486,9 @@ body {
 }
 
 .btn-submit {
-  background: var(--brand);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  font-size: var(--font-size-md);
-  font-weight: 600;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  font-size: var(--font-size-base);
 }
 
 .btn-submit:hover {
@@ -475,9 +498,7 @@ body {
 .btn-commit {
   background: var(--green);
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  font-size: var(--font-size-md);
-  font-weight: 600;
+  font-size: var(--font-size-base);
 }
 
 .btn-commit:hover {
@@ -492,6 +513,7 @@ body {
 
 .review-actions {
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   gap: 0.75rem;
 }
