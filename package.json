@@ -1,6 +1,6 @@
 {
   "name": "agent-review",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Super lightweight CLI-based code review tool with GitHub-like UI for AI coding agents",
   "main": "dist/cli/index.js",
   "type": "module",

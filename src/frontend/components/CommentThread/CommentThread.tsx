@@ -55,6 +55,12 @@ export function CommentThread({ file, line, oldLine, context, lineKey, onClose }
 
       <div className="comment-editor">
         <textarea
+            autofocus
+            onKeyPress={(e) => {
+              if (e.shiftKey && e.key === 'Enter') {
+                handleSave()
+              }
+            }}
             className="comment-input"
             placeholder="Add your comment..."
             value={commentText}
@@ -65,7 +71,7 @@ export function CommentThread({ file, line, oldLine, context, lineKey, onClose }
 
         <div className="comment-actions">
           <button className="btn btn-primary" onClick={handleSave}>
-            {existingComment ? 'Update' : 'Save'} Comment
+            {existingComment ? 'Update' : 'Save'} Comment (shift+enter)
           </button>
 
           {existingComment && (
