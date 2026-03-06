@@ -2,18 +2,89 @@
  * DiffViewer component - displays file diffs
  */
 
-import { signal } from '@preact/signals';
+import { signal, computed } from '@preact/signals';
+import { useEffect } from 'preact/hooks';
 import type { ParsedDiff, DiffFile, DiffHunk, DiffLine } from '../../../shared/types';
 import { CommentThread } from '../CommentThread/CommentThread';
 import { comments } from '../App/App';
 
 const activeCommentLine = signal<string | null>(null);
+const focusedLineIndex = signal<number>(0);
+
+// Store all commentable lines for keyboard navigation
+const commentableLines = signal<Array<{ lineKey: string; element?: HTMLElement }>>([]);
 
 interface DiffViewerProps {
   diff: ParsedDiff;
 }
 
 export function DiffViewer({ diff }: DiffViewerProps) {
+  useEffect(() => {
+    // Build list of all commentable lines
+    const lines: Array<{ lineKey: string }> = [];
+    
+    for (const file of diff.files) {
+      for (const hunk of file.hunks) {
+        for (const line of hunk.lines) {
+          if (line.type !== 'context') {
+            const lineIdentifier = line.type === 'delete' 
+              ? `old-${line.oldLineNumber}`
+              : `new-${line.newLineNumber || line.oldLineNumber}`;
+            const lineKey = `${file.path}:${lineIdentifier}`;
+            lines.push({ lineKey });
+          }
+        }
+      }
+    }
+    
+    commentableLines.value = lines;
+    focusedLineIndex.value = 0;
+
+    // Keyboard navigation
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const totalLines = commentableLines.value.length;
+      
+      if (totalLines === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        focusedLineIndex.value = Math.min(focusedLineIndex.value + 1, totalLines - 1);
+        scrollToFocusedLine();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        focusedLineIndex.value = Math.max(focusedLineIndex.value - 1, 0);
+        scrollToFocusedLine();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const focusedLine = commentableLines.value[focusedLineIndex.value];
+        if (focusedLine) {
+          // Toggle comment thread
+          if (activeCommentLine.value === focusedLine.lineKey) {
+            activeCommentLine.value = null;
+          } else {
+            activeCommentLine.value = focusedLine.lineKey;
+          }
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        activeCommentLine.value = null;
+      }
+    };
+
+    const scrollToFocusedLine = () => {
+      const focusedLine = commentableLines.value[focusedLineIndex.value];
+      if (focusedLine) {
+        const element = document.querySelector(`[data-line-key="${focusedLine.lineKey}"]`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [diff]);
+
   return (
     <div class="diff-viewer">
       {diff.files.map((file) => (
