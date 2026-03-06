@@ -259,6 +259,11 @@ body {
   background: var(--bg-hover) !important;
 }
 
+.diff-line.focused {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+}
+
 .diff-line.has-comment {
   border-left: 3px solid var(--brand);
 }

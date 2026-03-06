@@ -158,6 +158,13 @@ function LineViewer({ line, file }: LineViewerProps) {
   
   const hasComment = comments.value.has(lineKey);
   const isActive = activeCommentLine.value === lineKey;
+  
+  // Check if this line is focused via keyboard navigation
+  const isFocused = computed(() => {
+    if (line.type === 'context') return false;
+    const focusedLine = commentableLines.value[focusedLineIndex.value];
+    return focusedLine?.lineKey === lineKey;
+  });
 
   const handleLineClick = () => {
     if (line.type !== 'context') {
@@ -168,8 +175,9 @@ function LineViewer({ line, file }: LineViewerProps) {
   return (
     <>
       <tr
-        class={`diff-line ${line.type} ${hasComment ? 'has-comment' : ''} ${isActive ? 'active' : ''}`}
+        class={`diff-line ${line.type} ${hasComment ? 'has-comment' : ''} ${isActive ? 'active' : ''} ${isFocused.value ? 'focused' : ''}`}
         onClick={handleLineClick}
+        data-line-key={line.type !== 'context' ? lineKey : undefined}
       >
         <td class="line-number old">{line.oldLineNumber || ''}</td>
         <td class="line-number new">{line.newLineNumber || ''}</td>
